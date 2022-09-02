@@ -20,9 +20,12 @@ class BasketController extends Controller
         /*TODO: Afficher liste des produits du panier*/
         $shopRepository = new ShopRepository();
         $products = [];
+
         // Get products in basket
-        foreach ($_SESSION['products'] as $product) {
-            $products[] = $shopRepository->findOne($product);
+        if (isset($_SESSION['products'])) {
+            foreach ($_SESSION['products'] as $product => $quantity) {
+                $products[] = $shopRepository->findOne($product);
+            }
         }
 
         $view = file_get_contents('view/page/basket/list.php');
@@ -43,7 +46,7 @@ class BasketController extends Controller
         if (in_array($_GET['id'], $_SESSION['products'])) {
             echo 'Ajouté';
         } else {
-            $_SESSION['products'][] = $_GET['id'];
+            $_SESSION['products'] += [$_GET['id'] => 1]; // Quantité
             var_dump($_SESSION);
         }
     }

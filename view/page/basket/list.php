@@ -13,16 +13,18 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($products as $product) : ?>
-                <tr>
-                    <td><?= $product[0]['proName'] ?></td>
-                    <td>CHF <?= $product[0]['proPrice'] ?></td>
-                    <td><!--TODO: Gerer quantité--></td>
-                    <td>
-                        <!--TODO: Ajouter boutons-->
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+            <?php if (isset($products) & $products != null): ?>
+                <?php foreach ($products as $product) : ?>
+                    <tr>
+                        <td><?= $product[0]['proName'] ?></td>
+                        <td>CHF <?= $product[0]['proPrice'] ?></td>
+                        <td><!--TODO: Gerer quantité--></td>
+                        <td>
+                            <!--TODO: Ajouter boutons-->
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
             </tbody>
             <tfoot>
             <tr>

@@ -11,6 +11,12 @@ class BasketController extends Controller
 
     public function show()
     {
+        //
+        /*$test = ['s' => 2, 'y' => 3];
+        $test += ['z' => 5];
+        foreach ($test as $key => $value)
+            echo $key;*/
+
         /*TODO: Afficher liste des produits du panier*/
         $shopRepository = new ShopRepository();
         $products = [];

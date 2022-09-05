@@ -34,6 +34,11 @@ class BasketController extends Controller
         return $content;
     }
 
+    public function modify()
+    {
+
+    }
+
     public function delete()
     {
         unset($_SESSION['products'][$_GET['id']]);
@@ -48,10 +53,9 @@ class BasketController extends Controller
         }
         if (isset($_SESSION['products'][$_GET['id']])) {
             $_SESSION['products'][$_GET['id']]++;
-            echo 'Ajouté';
         } else {
             $_SESSION['products'] += [$_GET['id'] => 1]; // Quantité
-            var_dump($_SESSION);
         }
+        header('Location: index.php?controller=basket&action=show');
     }
 }

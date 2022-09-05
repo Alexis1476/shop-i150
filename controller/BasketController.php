@@ -34,6 +34,12 @@ class BasketController extends Controller
         return $content;
     }
 
+    public function delete()
+    {
+        unset($_SESSION['products'][$_GET['id']]);
+        header('Location: index.php?controller=basket&action=show');
+    }
+
     public function add()
     {
         /*TODO: Ajouter produit au panier -> revenir en arrière*/

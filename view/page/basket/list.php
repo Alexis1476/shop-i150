@@ -33,8 +33,11 @@
                             </td>
                             <td>
                                 <a class="btn btn-default"
-                                   href="index.php?controller=basket&action=modify&id=<?= $product[0]['idProduct'] ?>">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                   href="index.php?controller=basket&action=modify&add=true&id=<?= $product[0]['idProduct'] ?>">
+                                    +</a>
+                                <a class="btn btn-default"
+                                   href="index.php?controller=basket&action=modify&add=false&id=<?= $product[0]['idProduct'] ?>">
+                                    -</a>
                                 <a onclick="return confirm(\'Etes-vous sûr ? \')" class="btn btn-default"
                                    href="index.php?controller=basket&action=delete&id=<?= $product[0]['idProduct'] ?>">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>

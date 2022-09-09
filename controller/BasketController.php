@@ -20,11 +20,7 @@ class BasketController extends Controller
                 $products[] = $shopRepository->findOne($product);
             }
         }
-        /*$sousTotal = 0;
-        foreach ($products as $product) {
 
-        }
-        $total =*/
         $view = file_get_contents('view/page/basket/list.php');
 
         ob_start();
@@ -36,7 +32,20 @@ class BasketController extends Controller
 
     public function modify()
     {
+        $shopRepository = new ShopRepository();
+        $product = $shopRepository->findOne($_GET['id']);
+        // Incrémenter la quantité
+        if ($_GET['add'] === 'true') {
+            if (++$_SESSION['products'][$_GET['id']] > $product[0]['proQuantity']) {
+                --$_SESSION['products'][$_GET['id']];
+            }
+        } else {
+            if (--$_SESSION['products'][$_GET['id']] == 0) {
+                unset($_SESSION['products'][$_GET['id']]);
+            }
+        }
 
+        header('Location: index.php?controller=basket&action=show');
     }
 
     public function delete()

@@ -54,8 +54,11 @@
                     </tr>
                     </tfoot>
                 </table>
+                <div>
+                    <a href="#" class="btn btn-default">Passer la commande</a>
+                </div>
             <?php else: ?>
-            <h3>Le panier est actuellement vide</h3>
+                <h3>Le panier est actuellement vide</h3>
             <?php endif; ?>
         </div>
     </div>

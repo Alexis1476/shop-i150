@@ -35,4 +35,15 @@ class OrderController extends Controller
 
         return $content;
     }
+
+    public function addresse()
+    {
+        $view = file_get_contents('view/page/order/addresse.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
 }

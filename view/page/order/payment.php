@@ -1,6 +1,6 @@
 <div class="container">
     <h3>Choisir un moyen de paiement</h3>
-    <form action="#">
+    <form action="index.php?controller=order&action=addresse" method="post">
         <div class="input-group">
             <input type="radio" id="poste" name="payment-method" value="<?= $invoicePrice ?>">
             <label for="poste">Sur facture (+ CHF <?= $invoicePrice ?>)</label>

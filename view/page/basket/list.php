@@ -55,7 +55,7 @@
                     </tfoot>
                 </table>
                 <div>
-                    <a href="#" class="btn btn-default">Passer la commande</a>
+                    <a href="index.php?controller=basket&action=delivery" class="btn btn-default">Passer la commande</a>
                 </div>
             <?php else: ?>
                 <h3>Le panier est actuellement vide</h3>

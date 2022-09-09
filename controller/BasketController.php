@@ -9,6 +9,18 @@ class BasketController extends Controller
         return call_user_func(array($this, $action));
     }
 
+    public function delivery()
+    {
+
+        $view = file_get_contents('view/page/basket/delivery.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
+
     public function show()
     {
         $shopRepository = new ShopRepository();
@@ -56,7 +68,6 @@ class BasketController extends Controller
 
     public function add()
     {
-        /*TODO: Ajouter produit au panier -> revenir en arrière*/
         if (!isset($_SESSION['products'])) {
             $_SESSION['products'] = [];
         }

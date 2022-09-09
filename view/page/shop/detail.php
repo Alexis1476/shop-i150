@@ -5,7 +5,13 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <p><?= $product[0]['proDescription'] ?></p>
-            <p>Encore : <?= $product[0]['proQuantity'] ?> en stock</p>
+            <p>
+                <?php if ($product[0]['proQuantity'] > 0): ?>
+                    Encore : <?= $product[0]['proQuantity'] ?> en stock
+                <?php else: ?>
+                    <b>Pas de stock</b>
+                <?php endif; ?>
+            </p>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <img src="resources/image/<?= $product[0]['proImage'] ?>">
@@ -18,7 +24,8 @@
         </div>
         <!--TODO: Button ajouter au panier si stock-->
         <?php if ($product[0]['proQuantity'] > 0): ?>
-            <a href="index.php?controller=basket&action=add&id=<?= $product[0]['idProduct'] ?>">Ajouter au panier</a>
+            <a class="btn btn-default" href="index.php?controller=basket&action=add&id=<?= $product[0]['idProduct'] ?>">
+                Ajouter au panier</a>
         <?php endif; ?>
     </div>
 </div>

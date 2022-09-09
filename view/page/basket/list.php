@@ -4,19 +4,19 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                    <th>Sous-total</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php $total = 0; ?>
-                <?php if (isset($products) & $products != null): ?>
+            <?php if (isset($products) & $products != null): ?>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Sous-total</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $total = 0; ?>
                     <?php foreach ($products as $product) : ?>
                         <tr>
                             <td><?= $product[0]['proName'] ?></td>
@@ -44,17 +44,19 @@
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                <?php endif; ?>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td>Total</td>
-                    <td></td>
-                    <td></td>
-                    <td>CHF <?= $total ?></td>
-                </tr>
-                </tfoot>
-            </table>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td>CHF <?= $total ?></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            <?php else: ?>
+            <h3>Le panier est actuellement vide</h3>
+            <?php endif; ?>
         </div>
     </div>
 </div>

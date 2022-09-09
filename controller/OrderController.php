@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function delivery()
     {
         $postePrice = 7.95;
-        $view = file_get_contents('view/page/basket/delivery.php');
+        $view = file_get_contents('view/page/order/delivery.php');
 
         ob_start();
         eval('?>' . $view);

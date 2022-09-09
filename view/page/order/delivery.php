@@ -3,7 +3,7 @@
     <form action="#">
         <div class="input-group">
             <input type="radio" id="poste" name="delivery-method">
-            <label for="poste">Par la poste (+ CHF <!--TODO, valeur dynamique-->)</label>
+            <label for="poste">Par la poste (+ CHF <?= $postePrice ?>)</label>
         </div>
         <div class="input-group">
             <input type="radio" id="poste" name="delivery-method">

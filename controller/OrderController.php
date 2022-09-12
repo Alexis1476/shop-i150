@@ -55,7 +55,33 @@ class OrderController extends Controller
 
     public function summary()
     {
+        define('ERROR_MESSAGE', 'Remplissez ce champ correctement');
         // TODO: Gerer formulaire d'avant (erreurs)
+        $errors = [];
+        if (!$_POST['title']) {
+            $errors['title'] = ERROR_MESSAGE;
+        }
+        if (!$_POST['firstName']) {
+            $errors['firstName'] = ERROR_MESSAGE;
+        }
+        if (!$_POST['lastName']) {
+            $errors['lastName'] = ERROR_MESSAGE;
+        }
+        if (!$_POST['street']) {
+            $errors['street'] = ERROR_MESSAGE;
+        }
+        if (!$_POST['streetNumber']) {
+            $errors['streetNumber'] = ERROR_MESSAGE;
+        }
+        if (!$_POST['pc']) {
+            $errors['pc'] = ERROR_MESSAGE;
+        }
+        if (!$_POST['locality']) {
+            $errors['locality'] = ERROR_MESSAGE;
+        }
+        if (!$_POST['mail']) {
+            $errors['mail'] = ERROR_MESSAGE;
+        }
 
         $view = file_get_contents('view/page/order/summary.php');
 

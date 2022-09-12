@@ -1,6 +1,6 @@
 <div class="container">
     <h3>Choisir un moyen de livraison</h3>
-    <form action="index.php?controller=order&action=#" method="post">
+    <form action="index.php?controller=order&action=summary" method="post">
         <div class="form-group">
             <label for="titre">Titre</label>
             <input name="titre" type="text" class="form-control" id="titre"/>

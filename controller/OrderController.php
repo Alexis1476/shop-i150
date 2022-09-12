@@ -42,7 +42,8 @@ class OrderController extends Controller
     public function addresse()
     {
         // Suppresion des erreurs de la session
-        $errors = $_SESSION['errors'];
+        if (isset($_SESSION['errors']))
+            $errors = $_SESSION['errors'];
         unset($_SESSION['errors']);
 
         // Si l'utilisateur n'a pas selectionné un moyen de paiement

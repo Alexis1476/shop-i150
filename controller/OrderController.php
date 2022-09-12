@@ -23,6 +23,9 @@ class OrderController extends Controller
 
     public function payment()
     {
+        if (!isset($_POST['deliveryMethod']))
+            header('Location: index.php?controller=order&action=delivery&error');
+
         /*TODO: Sauvegarder l'élection utilisateur*/
         $invoicePrice = 2;
         $creditCard = 2;

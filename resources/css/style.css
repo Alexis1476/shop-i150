@@ -1,8 +1,14 @@
-.boxProduct{
+.boxProduct {
     text-align: center;
     margin-bottom: 30px;
 }
+
 .priceProduct {
     font-weight: bold;
+}
+
+.justify-content {
+    display: flex;
+    justify-content: space-between;
 }
 

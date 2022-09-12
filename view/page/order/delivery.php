@@ -1,6 +1,7 @@
 <div class="container">
     <h3>Choisir un moyen de livraison</h3>
     <form action="index.php?controller=order&action=payment" method="post">
+        <input type="hidden" name="form" value="delivery">
         <div class="input-group">
             <input type="radio" id="poste" name="deliveryMethod" value="<?= $postePrice ?>">
             <label for="poste">Par la poste (+ CHF <?= $postePrice ?>)</label>

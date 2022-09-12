@@ -2,32 +2,32 @@
     <h3>Choisir un moyen de livraison</h3>
     <form action="index.php?controller=order&action=summary" method="post">
         <div class="form-group">
-            <label for="titre">Titre</label>
-            <input name="titre" type="text" class="form-control" id="titre"/>
+            <label for="title">Titre</label>
+            <input name="title" type="text" class="form-control" id="title"/>
         </div>
         <div class="form-group">
-            <label for="nom">Nom</label>
-            <input name="nom" type="text" class="form-control" id="nom"/>
+            <label for="lastName">Nom</label>
+            <input name="lastName" type="text" class="form-control" id="lastName"/>
         </div>
         <div class="form-group">
-            <label for="prenom">Prénom</label>
-            <input name="prenom" type="text" class="form-control" id="prenom"/>
+            <label for="firstName">Prénom</label>
+            <input name="firstName" type="text" class="form-control" id="firstName"/>
         </div>
         <div class="form-group">
-            <label for="rue">Rue</label>
-            <input name="rue" type="text" class="form-control" id="rue"/>
+            <label for="street">Rue</label>
+            <input name="street" type="text" class="form-control" id="street"/>
         </div>
         <div class="form-group">
-            <label for="numero-rue">N°</label>
-            <input name="numero-rue" type="text" class="form-control" id="numero-rue"/>
+            <label for="streetNumber">N°</label>
+            <input name="streetNumber" type="text" class="form-control" id="streetNumber"/>
         </div>
         <div class="form-group">
-            <label for="npa">NPA</label>
-            <input name="npa" type="text" class="form-control" id="npa"/>
+            <label for="pc">NPA</label>
+            <input name="pc" type="text" class="form-control" id="pc"/>
         </div>
         <div class="form-group">
-            <label for="localite">Localité</label>
-            <input name="localite" type="text" class="form-control" id="localite"/>
+            <label for="locality">Localité</label>
+            <input name="locality" type="text" class="form-control" id="locality"/>
         </div>
         <div class="form-group">
             <label for="mail">Adresse mail</label>

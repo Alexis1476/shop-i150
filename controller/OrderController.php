@@ -23,7 +23,7 @@ class OrderController extends Controller
 
     public function payment()
     {
-        if (!isset($_POST['deliveryMethod']))
+        if (!isset($_POST['deliveryMethod']) && isset($_POST['form']))
             header('Location: index.php?controller=order&action=delivery&error');
 
         /*TODO: Sauvegarder l'élection utilisateur*/
@@ -41,6 +41,9 @@ class OrderController extends Controller
 
     public function addresse()
     {
+        if (!isset($_POST['paymentMethod']))
+            header('Location: index.php?controller=order&action=payment&error');
+
         $view = file_get_contents('view/page/order/addresse.php');
 
         ob_start();

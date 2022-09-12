@@ -42,11 +42,11 @@ class OrderController extends Controller
     public function addresse()
     {
         // Suppresion des erreurs de la session
-        $errors = $_POST['errors'];
-        unset($_POST['errors']);
+        $errors = $_SESSION['errors'];
+        unset($_SESSION['errors']);
 
         // Si l'utilisateur n'a pas selectionné un moyen de paiement
-        if (!isset($_POST['paymentMethod']))
+        if (!isset($_POST['paymentMethod']) && isset($_POST['form']))
             header('Location: index.php?controller=order&action=payment&error');
 
         $view = file_get_contents('view/page/order/addresse.php');

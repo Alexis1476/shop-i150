@@ -52,4 +52,17 @@ class OrderController extends Controller
 
         return $content;
     }
+
+    public function summary()
+    {
+        // TODO: Gerer formulaire d'avant (erreurs)
+
+        $view = file_get_contents('view/page/order/summary.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
 }

@@ -88,7 +88,7 @@ class OrderController extends Controller
             $_SESSION['errors']['mail'] = ERROR_MESSAGE;
         }
 
-        if ($_SESSION['errors']) {
+        if (isset($_SESSION['errors']) && $_SESSION['errors']) {
             header('Location: index.php?controller=order&action=addresse');
         }
 

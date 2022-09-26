@@ -101,8 +101,18 @@ class OrderController extends Controller
         $_SESSION['mail'] = $_POST['mail'];
         $_SESSION['phone'] = $_POST['phone'];
 
+        // S'il y a des erreurs dans le formulaire
         if (isset($_SESSION['errors']) && $_SESSION['errors']) {
             header('Location: index.php?controller=order&action=addresse');
+        }
+        $shopRepository = new ShopRepository();
+        $products = [];
+
+        // Get products in basket
+        if (isset($_SESSION['products'])) {
+            foreach ($_SESSION['products'] as $product => $quantity) {
+                $products[] = $shopRepository->findOne($product);
+            }
         }
 
         $view = file_get_contents('view/page/order/summary.php');

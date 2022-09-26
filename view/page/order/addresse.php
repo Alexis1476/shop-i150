@@ -57,6 +57,13 @@
                 <p class="text-danger"><?= $errors['mail'] ?></p>
             <?php endif; ?>
         </div>
+        <div class="form-group">
+            <label for="phone">Numéro de téléphone</label>
+            <input name="phone" type="text" class="form-control" id="phone"/>
+            <?php if (isset($errors['phone'])): ?>
+                <p class="text-danger"><?= $errors['phone'] ?></p>
+            <?php endif; ?>
+        </div>
         <button class="btn btn-default">Suivant</button>
     </form>
 </div>

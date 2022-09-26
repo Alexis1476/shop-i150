@@ -5,10 +5,10 @@
         <p>Livraison :</p>
         <p>Paiement :</p>
     </div>
-    <p><!--TODO: Titre--></p>
-    <p><!--TODO: Prenom Nom--></p>
-    <p><!--TODO: Adresse N°--></p>
-    <p><!--TODO: NPA Localite--></p>
+    <p><?= $_SESSION['title'] ?></p>
+    <p><?= $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] ?></p>
+    <p><?= $_SESSION['street'] . ' ' . $_SESSION['streetNumber'] ?></p>
+    <p><?= $_SESSION['pc'] . ' ' . $_SESSION['locality'] ?></p>
     <table class="table table-striped">
         <thead>
         <tr>

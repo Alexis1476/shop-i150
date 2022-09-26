@@ -19,13 +19,13 @@
         </tr>
         </thead>
         <tbody>
-        <!--TODO : Boucle pour afficher les produits-->
+        <!--Affichage des produits-->
         <?php $total = 0; ?>
         <?php foreach ($products as $product) : ?>
             <tr>
                 <td><?= $product[0]['proName'] ?></td>
                 <td>CHF <?= $product[0]['proPrice'] ?></td>
-                <td><!--TODO: Gerer quantité-->
+                <td>
                     <?= $_SESSION['products'][$product[0]['idProduct']] ?>
                 </td>
                 <td>

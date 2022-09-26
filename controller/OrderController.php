@@ -11,7 +11,8 @@ class OrderController extends Controller
 
     public function delivery()
     {
-        $postePrice = 7.95;
+        $deliveryMethods = ['Par la poste' => 7.95, 'Retrait au magasin' => 0];
+
         $view = file_get_contents('view/page/order/delivery.php');
 
         ob_start();

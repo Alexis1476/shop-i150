@@ -42,4 +42,36 @@ class BasketController extends Controller
 
         return $content;
     }
+
+    /**
+     * Incrémente ou décrémente la quantité du produit du panier
+     * @return void
+     */
+    public function modify()
+    {
+        $shopRepository = new ShopRepository();
+        $product = $shopRepository->findOne($_GET['id']);
+        // Incrémenter la quantité
+        if ($_GET['add'] === 'true') {
+            if (++$_SESSION['products'][$_GET['id']] > $product[0]['proQuantity']) {
+                --$_SESSION['products'][$_GET['id']];
+            }
+        } else {
+            if (--$_SESSION['products'][$_GET['id']] == 0) {
+                unset($_SESSION['products'][$_GET['id']]);
+            }
+        }
+
+        header('Location: index.php?controller=basket&action=show');
+    }
+
+    /**
+     * Supprime un produit du panier
+     * @return void
+     */
+    public function delete()
+    {
+        unset($_SESSION['products'][$_GET['id']]);
+        header('Location: index.php?controller=basket&action=show');
+    }
 }

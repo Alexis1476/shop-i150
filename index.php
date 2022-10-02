@@ -20,21 +20,17 @@ include 'controller/AdminController.php';
 include 'controller/HomeController.php';
 include 'controller/LoginController.php';
 include 'controller/ShopController.php';
-include 'controller/BasketController.php';
-include 'controller/OrderController.php';
 
 date_default_timezone_set('Europe/Zurich');
 
-class MainController
-{
+class MainController {
 
     /**
      * Constructor for view display
      *
      * @return void
      */
-    public function dispatch()
-    {
+    public function dispatch() {
 
         if (!isset($_GET['controller'])) {
             $_GET['controller'] = 'shop';
@@ -50,14 +46,16 @@ class MainController
      * Selected the page current
      *
      * @param string $page
-     * @return AdminController|HomeController|LoginController|ShopController
+     * @return string
      */
-    protected function menuSelected($page)
-    {
+    protected function menuSelected ($page) {
 
-        switch ($page) {
+        switch($_GET['controller']){
             case 'admin':
                 $link = new AdminController();
+                break;
+            case 'home':
+                $link = new HomeController();
                 break;
             case 'login':
                 $link = new LoginController();
@@ -65,13 +63,6 @@ class MainController
             case 'shop':
                 $link = new ShopController();
                 break;
-            case 'basket':
-                $link = new BasketController();
-                break;
-            case 'order':
-                $link = new OrderController();
-                break;
-            case 'home':
             default:
                 $link = new HomeController();
                 break;
@@ -86,20 +77,19 @@ class MainController
      * @param $currentPage
      * @return void
      */
-    protected function viewBuild($currentPage)
-    {
+    protected function viewBuild($currentPage) {
 
-        $content = $currentPage->display();
+            $content = $currentPage->display();
 
-        if (get_class($currentPage) == 'DownloadController') {
-            echo $content;
-        } else {
-            include(dirname(__FILE__) . '/view/head.html');
-            include(dirname(__FILE__) . '/view/header.html');
-            include(dirname(__FILE__) . '/view/menu.php');
-            echo $content;
-            include(dirname(__FILE__) . '/view/footer.html');
-        }
+            if (get_class($currentPage) == 'DownloadController') {
+                echo $content;
+            } else {
+                include(dirname(__FILE__) . '/view/head.html');
+                include(dirname(__FILE__) . '/view/header.html');
+                include(dirname(__FILE__) . '/view/menu.php');
+                echo $content;
+                include(dirname(__FILE__) . '/view/footer.html');
+            }
     }
 }
 

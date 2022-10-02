@@ -44,6 +44,25 @@ class BasketController extends Controller
     }
 
     /**
+     * Ajoute un produit au panier
+     * @return void
+     */
+    public function add()
+    {
+        // Si le tableau contenant les id des produits n'existe pas
+        if (!isset($_SESSION['products'])) {
+            $_SESSION['products'] = [];
+        }
+        // Si un produit existe déjà on incrémente la quantité
+        if (isset($_SESSION['products'][$_GET['id']])) {
+            $_SESSION['products'][$_GET['id']]++;
+        } else {
+            $_SESSION['products'] += [$_GET['id'] => 1]; // Quantité initiale
+        }
+        header('Location: index.php?controller=basket&action=show');
+    }
+
+    /**
      * Incrémente ou décrémente la quantité du produit du panier
      * @return void
      */

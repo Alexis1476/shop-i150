@@ -21,6 +21,7 @@ include 'controller/HomeController.php';
 include 'controller/LoginController.php';
 include 'controller/ShopController.php';
 include 'controller/BasketController.php';
+include 'controller/OrderController.php';
 
 date_default_timezone_set('Europe/Zurich');
 

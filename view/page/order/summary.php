@@ -2,8 +2,8 @@
     <h3>Récapitulatif</h3>
     <div class="justify-content">
         <p>Envoyé à :</p>
-        <p>Livraison :</p>
-        <p>Paiement :</p>
+        <p>Livraison : <?= $delivery['name'] ?></p>
+        <p>Paiement : <?= $payment['name'] ?></p>
     </div>
     <p><?= $_SESSION['title'] ?></p>
     <p><?= $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] ?></p>
@@ -38,29 +38,30 @@
             </tr>
         <?php endforeach; ?>
         <tr>
-            <td><!--TODO : Nom moyen de paiement--></td>
+            <td><?= $delivery['text']?></td>
             <td></td>
             <td></td>
-            <td>CHF <!--TODO : Prix moyen de paiement--></td>
+            <td>CHF <?= $delivery['calcul']?></td>
         </tr>
         <tr>
             <td>Total</td>
             <td></td>
             <td></td>
-            <td>CHF <!--TODO : Total produits--></td>
+            <td>CHF <?= $totaux['delivery'] ?></td>
         </tr>
         <tr>
-            <td><!--TODO : Moyen de paiement--></td>
+            <td><?= $payment['text']?></td>
             <td></td>
             <td></td>
-            <td>CHF <!--TODO : Calcul montant moyen de paiement--></td>
+            <td>CHF <?= $payment['calcul']?></td>
         </tr>
         <tr>
             <td>Total à payer</td>
             <td></td>
             <td></td>
-            <td>CHF <!--TODO : Total--></td>
+            <td>CHF <?=$_SESSION['total']?></td>
         </tr>
         </tbody>
     </table>
+    <button>Envoyer la commande</button>
 </div>

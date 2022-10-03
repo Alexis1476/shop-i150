@@ -3,7 +3,7 @@
 /**
  * Auteur : Alexis Rojas
  * Date: 03.10.2022
- * Moyens de paiement
+ * Modes de livraison
  */
 
  $deliveryMethods = [

@@ -1,6 +1,6 @@
 <div class="container">
     <h3>Choisir un moyen de livraison</h3>
-    <form action="index.php?controller=order&action=payment" method="post">
+    <form action="index.php?controller=order&action=delivery" method="post">
         <input type="hidden" name="form" value="delivery">
         <?php foreach ($deliveryMethods as $item): ?>
             <div class="input-group">

@@ -132,4 +132,23 @@ class OrderController extends Controller
 
         return $content;
     }
+    public function summary(){
+        $shopRepository = new ShopRepository();
+        $products = [];
+
+        // Get products in basket
+        if (isset($_SESSION['products'])) {
+            foreach ($_SESSION['products'] as $product => $quantity) {
+                $products[] = $shopRepository->findOne($product);
+            }
+        }
+
+        $view = file_get_contents('view/page/order/summary.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
 }

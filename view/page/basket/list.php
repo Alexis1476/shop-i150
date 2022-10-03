@@ -16,7 +16,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $total = 0; ?>
+                    <?php $_SESSION['totalProducts'] = 0; ?>
                     <?php foreach ($products as $product) : ?>
                         <tr>
                             <td><?= $product[0]['proName'] ?></td>
@@ -28,7 +28,7 @@
                                 CHF
                                 <?php
                                 $sousTotal = $_SESSION['products'][$product[0]['idProduct']] * $product[0]['proPrice'];
-                                $total += $sousTotal;
+                                $_SESSION['totalProducts'] += $sousTotal;
                                 echo $sousTotal ?>
                             </td>
                             <td>
@@ -50,7 +50,7 @@
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td>CHF <?= $total ?></td>
+                        <td>CHF <?= $_SESSION['totalProducts'] ?></td>
                     </tr>
                     </tfoot>
                 </table>

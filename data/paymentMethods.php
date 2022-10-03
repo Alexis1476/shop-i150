@@ -20,7 +20,7 @@
         'text' => 'Paiement par avance',
         'operator' => '+',
         'value' => 0
-    ]
+    ],
     2 => [
         'id' => 3,
         'name' => 'Carte de crédit',

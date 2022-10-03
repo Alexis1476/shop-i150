@@ -26,6 +26,6 @@
         'name' => 'Carte de crédit',
         'text' => 'Carte de crédit (+ 2%)',
         'operator' => '*',
-        'value' => 1.02
+        'value' => 0.02 // 2%
     ]
  ];

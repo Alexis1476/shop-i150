@@ -200,9 +200,6 @@ class OrderController extends Controller
         }
         $_SESSION['total'] = $payment['calcul'] + $totaux['delivery'];
 
-        echo '<pre>';
-        var_dump($delivery);
-        echo '</pre>';
         $view = file_get_contents('view/page/order/summary.php');
 
         ob_start();

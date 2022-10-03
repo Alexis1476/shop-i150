@@ -9,14 +9,14 @@
  $paymentMethods = [
     0 => [
         'id' => 1,
-        'name' => 'Facture',
+        'name' => 'Sur facture',
         'text' => 'Sur facture (+ 2.-)',
         'operator' => '+',
         'value' => 2
     ],
     1 => [
         'id' => 2,
-        'name' => 'Par avance',
+        'name' => 'Paiement par avance',
         'text' => 'Paiement par avance',
         'operator' => '+',
         'value' => 0

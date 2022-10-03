@@ -7,10 +7,18 @@
  */
 class OrderController extends Controller
 {
+    /**
+     * Retourne les modes de livraison
+     * @return array
+     */
     public function deliveryMethods(){
         include './data/deliveryMethods.php';
         return $deliveryMethods;
     }
+    /**
+     * Retourne les modes de paiement
+     * @return array
+     */
     public function paymentMethods(){
         include './data/paymentMethods.php';
         return $paymentMethods;
@@ -25,6 +33,10 @@ class OrderController extends Controller
 
         return call_user_func(array($this, $action));
     }
+    /**
+     * Affiche le formulaire du mode de livraison
+     * @return mixed
+     */
     public function delivery()
     {
         // Si le serveur traite une méthode post
@@ -49,6 +61,10 @@ class OrderController extends Controller
 
         return $content;
     }
+    /**
+     * Affiche le formulaire du mode de paiement
+     * @return mixed
+     */
     public function payment()
     {
         // Si le serveur traite une méthode post
@@ -73,6 +89,10 @@ class OrderController extends Controller
 
         return $content;
     }
+    /**
+     * Affiche le formulaire des données du client
+     * @return mixed
+     */
     public function addresse()
     {
         $errors = [];
@@ -132,6 +152,10 @@ class OrderController extends Controller
 
         return $content;
     }
+    /**
+     * Affiche le récapitulatif de la commande
+     * @return mixed
+     */
     public function summary(){
         $shopRepository = new ShopRepository();
         $products = [];
@@ -143,6 +167,42 @@ class OrderController extends Controller
             }
         }
 
+        // Mode de livraison
+        $deliveryMethods = $this->deliveryMethods();
+        $delivery = [];
+        foreach ($deliveryMethods as $key => $value) {
+            if($value['id'] == $_SESSION['deliveryMethod'])
+                $delivery = $value;
+        }
+        // Calcul montant mode de livraison
+        $delivery['calcul'] = 0;
+        if($delivery['operator'] == '+'){
+            $delivery['calcul'] = $delivery['value'];
+        }else{
+            $delivery['calcul'] = $_SESSION['totalProducts'] * $delivery['value'];
+        }
+        $totaux['delivery'] = $_SESSION['totalProducts'] + $delivery['calcul'];
+
+        // Mode de paiement
+        $paymentMethods = $this->paymentMethods();
+        $payment = [];
+        foreach ($paymentMethods as $key => $value) {
+            if($value['id'] == $_SESSION['paymentMethod'])
+                $payment = $value;
+        }
+
+        // Calcul montant mode de livraison
+        $payment['calcul'] = 0;
+        if($payment['operator'] == '+'){
+            $payment['calcul'] = $payment['value'];
+        }else{
+            $payment['calcul'] = $totaux['delivery'] * $payment['value'];
+        }
+        $_SESSION['total'] = $payment['calcul'] + $totaux['delivery'];
+
+        echo '<pre>';
+        var_dump($delivery);
+        echo '</pre>';
         $view = file_get_contents('view/page/order/summary.php');
 
         ob_start();

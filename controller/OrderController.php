@@ -34,7 +34,7 @@ class OrderController extends Controller
                 header('Location: index.php?controller=order&action=delivery&error');
             else{
                 // Enregistre le moyen de paiement -> avance au prochain formulaire
-                $_SESSION['paymentMethod'] = $_POST['deliveryMethod'];
+                $_SESSION['deliveryMethod'] = $_POST['deliveryMethod'];
                 header('Location: index.php?controller=order&action=payment');
             }
         }
@@ -42,6 +42,30 @@ class OrderController extends Controller
         $deliveryMethods = $this->deliveryMethods();
 
         $view = file_get_contents('view/page/order/delivery.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
+    public function payment()
+    {
+        // Si le serveur traite une méthode post
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Si aucune option n'est selectionnée
+            if (!isset($_POST['paymentMethod']))
+                header('Location: index.php?controller=order&action=payment&error');
+            else{
+                // Enregistre le moyen de paiement -> avance au prochain formulaire
+                $_SESSION['paymentMethod'] = $_POST['paymentMethod'];
+                header('Location: index.php?controller=order&action=addresse');
+            }   
+        }
+
+        $paymentMethods = $this->paymentMethods();
+
+        $view = file_get_contents('view/page/order/payment.php');
 
         ob_start();
         eval('?>' . $view);

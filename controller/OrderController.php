@@ -11,18 +11,22 @@ class OrderController extends Controller
      * Retourne les modes de livraison
      * @return array
      */
-    public function deliveryMethods(){
+    public function deliveryMethods()
+    {
         include './data/deliveryMethods.php';
         return $deliveryMethods;
     }
+
     /**
      * Retourne les modes de paiement
      * @return array
      */
-    public function paymentMethods(){
+    public function paymentMethods()
+    {
         include './data/paymentMethods.php';
         return $paymentMethods;
     }
+
     /**
      * Dispatch current action
      * @return mixed
@@ -33,6 +37,7 @@ class OrderController extends Controller
 
         return call_user_func(array($this, $action));
     }
+
     /**
      * Affiche le formulaire du mode de livraison
      * @return mixed
@@ -40,11 +45,11 @@ class OrderController extends Controller
     public function delivery()
     {
         // Si le serveur traite une méthode post
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Si aucune option n'est selectionnée
             if (!isset($_POST['deliveryMethod']))
                 header('Location: index.php?controller=order&action=delivery&error');
-            else{
+            else {
                 // Enregistre le moyen de paiement -> avance au prochain formulaire
                 $_SESSION['deliveryMethod'] = $_POST['deliveryMethod'];
                 header('Location: index.php?controller=order&action=payment');
@@ -61,6 +66,7 @@ class OrderController extends Controller
 
         return $content;
     }
+
     /**
      * Affiche le formulaire du mode de paiement
      * @return mixed
@@ -68,15 +74,15 @@ class OrderController extends Controller
     public function payment()
     {
         // Si le serveur traite une méthode post
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Si aucune option n'est selectionnée
             if (!isset($_POST['paymentMethod']))
                 header('Location: index.php?controller=order&action=payment&error');
-            else{
+            else {
                 // Enregistre le moyen de paiement -> avance au prochain formulaire
                 $_SESSION['paymentMethod'] = $_POST['paymentMethod'];
                 header('Location: index.php?controller=order&action=addresse');
-            }   
+            }
         }
 
         $paymentMethods = $this->paymentMethods();
@@ -89,6 +95,7 @@ class OrderController extends Controller
 
         return $content;
     }
+
     /**
      * Affiche le formulaire des données du client
      * @return mixed
@@ -97,7 +104,7 @@ class OrderController extends Controller
     {
         $errors = [];
         // Si le serveur traite une méthode post
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             define('ERROR_MESSAGE', 'Remplissez ce champ correctement');
             // Validation des données
             if (!$_POST['title'] || !preg_match("/^[a-z|A-Z]+$/", $_POST['title'])) {
@@ -152,11 +159,13 @@ class OrderController extends Controller
 
         return $content;
     }
+
     /**
      * Affiche le récapitulatif de la commande
      * @return mixed
      */
-    public function summary(){
+    public function summary()
+    {
         $shopRepository = new ShopRepository();
         $products = [];
 
@@ -171,34 +180,34 @@ class OrderController extends Controller
         $deliveryMethods = $this->deliveryMethods();
         $delivery = [];
         foreach ($deliveryMethods as $key => $value) {
-            if($value['id'] == $_SESSION['deliveryMethod'])
+            if ($value['id'] == $_SESSION['deliveryMethod'])
                 $delivery = $value;
         }
         // Calcul montant mode de livraison
         $delivery['calcul'] = 0;
-        if($delivery['operator'] == '+'){
+        if ($delivery['operator'] == '+') {
             $delivery['calcul'] = $delivery['value'];
-        }else{
+        } else {
             $delivery['calcul'] = $_SESSION['totalProducts'] * $delivery['value'];
         }
-        $totaux['delivery'] = $_SESSION['totalProducts'] + $delivery['calcul'];
+        $totaux['delivery'] = round($_SESSION['totalProducts'] + $delivery['calcul'], 1);
 
         // Mode de paiement
         $paymentMethods = $this->paymentMethods();
         $payment = [];
         foreach ($paymentMethods as $key => $value) {
-            if($value['id'] == $_SESSION['paymentMethod'])
+            if ($value['id'] == $_SESSION['paymentMethod'])
                 $payment = $value;
         }
 
         // Calcul montant mode de livraison
         $payment['calcul'] = 0;
-        if($payment['operator'] == '+'){
+        if ($payment['operator'] == '+') {
             $payment['calcul'] = $payment['value'];
-        }else{
-            $payment['calcul'] = $totaux['delivery'] * $payment['value'];
+        } else {
+            $payment['calcul'] = round($totaux['delivery'] * $payment['value'],1);
         }
-        $_SESSION['total'] = $payment['calcul'] + $totaux['delivery'];
+        $_SESSION['total'] = round($payment['calcul'] + $totaux['delivery'], 1);
 
         $view = file_get_contents('view/page/order/summary.php');
 

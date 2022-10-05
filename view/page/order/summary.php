@@ -33,33 +33,33 @@
                     <?php
                     $sousTotal = $_SESSION['products'][$product[0]['idProduct']] * $product[0]['proPrice'];
                     $total += $sousTotal;
-                    echo $sousTotal ?>
+                    echo number_format($sousTotal, 2) ?>
                 </td>
             </tr>
         <?php endforeach; ?>
         <tr>
-            <td><?= $delivery['text']?></td>
+            <td><?= $delivery['text'] ?></td>
             <td></td>
             <td></td>
-            <td>CHF <?= $delivery['calcul']?></td>
+            <td>CHF <?= $delivery['calcul'] ?></td>
         </tr>
         <tr>
             <td>Total</td>
             <td></td>
             <td></td>
-            <td>CHF <?= $totaux['delivery'] ?></td>
+            <td>CHF <?= number_format($totaux['delivery'], 2) ?></td>
         </tr>
         <tr>
-            <td><?= $payment['text']?></td>
+            <td><?= $payment['text'] ?></td>
             <td></td>
             <td></td>
-            <td>CHF <?= $payment['calcul']?></td>
+            <td>CHF <?= number_format($payment['calcul'], 2) ?></td>
         </tr>
         <tr>
             <td>Total à payer</td>
             <td></td>
             <td></td>
-            <td>CHF <?=$_SESSION['total']?></td>
+            <td>CHF <?= number_format($_SESSION['total'], 2) ?></td>
         </tr>
         </tbody>
     </table>

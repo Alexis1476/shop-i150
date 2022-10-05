@@ -63,7 +63,7 @@
         </tr>
         </tbody>
     </table>
-    <form action="index.php?controller=order?action=sendOrder">
+    <form action="index.php?controller=order&action=sendOrder" method="post">
         <button type="submit">Envoyer la commande</button>
     </form>
 </div>

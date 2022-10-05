@@ -28,8 +28,9 @@
                                 CHF
                                 <?php
                                 $sousTotal = $_SESSION['products'][$product[0]['idProduct']] * $product[0]['proPrice'];
+                                $sousTotal = round($sousTotal, 2);
                                 $_SESSION['totalProducts'] += $sousTotal;
-                                echo $sousTotal ?>
+                                echo number_format($sousTotal, 2); ?>
                             </td>
                             <td>
                                 <a class="btn btn-default"
@@ -50,7 +51,7 @@
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td>CHF <?= $_SESSION['totalProducts'] ?></td>
+                        <td>CHF <?= number_format($_SESSION['totalProducts'], 2) ?></td>
                     </tr>
                     </tfoot>
                 </table>

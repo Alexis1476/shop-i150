@@ -41,7 +41,7 @@
             <td><?= $delivery['text'] ?></td>
             <td></td>
             <td></td>
-            <td>CHF <?= $delivery['calcul'] ?></td>
+            <td>CHF <?= number_format($delivery['calcul'], 2) ?></td>
         </tr>
         <tr>
             <td>Total</td>
@@ -63,5 +63,7 @@
         </tr>
         </tbody>
     </table>
-    <button>Envoyer la commande</button>
+    <form action="index.php?controller=order?action=sendOrder">
+        <button type="submit">Envoyer la commande</button>
+    </form>
 </div>

@@ -5,6 +5,12 @@
  * Auteur: Alexis Rojas
  * Description: Class qui controle les actions rélatives à la commande
  */
+include_once 'classes/AdminRepository.php';
+include_once 'classes/OrderRepository.php';
+
+/**
+ * Class qui controle les actions rélatives à la commande
+ */
 class OrderController extends Controller
 {
     /**
@@ -205,7 +211,7 @@ class OrderController extends Controller
         if ($payment['operator'] == '+') {
             $payment['calcul'] = $payment['value'];
         } else {
-            $payment['calcul'] = round($totaux['delivery'] * $payment['value'],1);
+            $payment['calcul'] = round($totaux['delivery'] * $payment['value'], 1);
         }
         $_SESSION['total'] = round($payment['calcul'] + $totaux['delivery'], 1);
 
@@ -216,5 +222,57 @@ class OrderController extends Controller
         $content = ob_get_clean();
 
         return $content;
+    }
+
+    /**
+     * Enregistre les données de la commande dans la base de données
+     * @return void
+     */
+    public function sendOrder()
+    {
+        $orderRepository = new OrderRepository();
+        $adminRepository = new AdminRepository();
+        $shopRepository = new ShopRepository();
+
+        // Generer numéro de commande
+        $_SESSION['orderNumber'] = date_create()->format('mdHis');
+
+        // Creer commande
+        $idOrder = $orderRepository->insert(
+            $_SESSION['title'],
+            $_SESSION['firstName'],
+            $_SESSION['lastName'],
+            $_SESSION['locality'],
+            $_SESSION['mail'],
+            $_SESSION['orderNumber'],
+            $_SESSION['phone'],
+            $_SESSION['street'],
+            $_SESSION['streetNumber'],
+            $_SESSION['total']
+        );
+
+        // Remplir table pivot avec ID commande + IDs produits + quantité
+        $products = []; // Tableau de produits
+        $counter = 0;   // Compteur pour les produits de la base de donnée
+        foreach ($_SESSION['products'] as $id => $quantity) {
+            $products[] = $shopRepository->findOne($id)[0];
+
+            $orderRepository->addProducts($idOrder, $id, $quantity);  // Ajoute les produits dans la table pivot
+            // Mettre à jour la quantité
+            $products[$counter]['proQuantity'] -= $quantity;
+            $adminRepository->update(
+                $products[$counter]['proName'],
+                $products[$counter]['proDescription'],
+                $products[$counter]['proPrice'],
+                $products[$counter]['proQuantity'],
+                $products[$counter]['proImage'],
+                $products[$counter]['idCategory'],
+                $id
+            );
+            $counter++;
+        }
+        // Affichage remerciements
+
+        // Destruction de la session
     }
 }

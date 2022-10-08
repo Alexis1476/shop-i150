@@ -12,88 +12,96 @@
 -- Database Section
 -- ________________ 
 
-create database db_shop;
-use db_shop;
+create
+database db_shop;
+use
+db_shop;
 
 
 -- Tables Section
 -- _____________ 
 
-create table t_category (
-     idCategory bigint not null auto_increment,
-     catName varchar(30) not null,
-     constraint ID_t_category_ID primary key (idCategory));
-     --
+create table t_category
+(
+    idCategory bigint      not null auto_increment,
+    catName    varchar(30) not null,
+    constraint ID_t_category_ID primary key (idCategory)
+);
+--
 -- Contenu de la table `t_category`
 --
 INSERT INTO `t_category` (`idCategory`, `catName`)
 VALUES (1, 'Vêtement'),
-     (2, 'Sport'),
-     (3, 'Informatique');
+       (2, 'Sport'),
+       (3, 'Informatique');
 
-create table t_concern (
-     fkOrder bigint not null,
-     fkProduct bigint not null,
-     conQuantity char(1) not null,
-     constraint ID_t_concern_ID primary key (fkOrder, fkProduct));
+create table t_concern
+(
+    fkOrder     bigint  not null,
+    fkProduct   bigint  not null,
+    conQuantity char(1) not null,
+    constraint ID_t_concern_ID primary key (fkOrder, fkProduct)
+);
 
-create table t_order (
-     idOrder bigint not null auto_increment,
-     ordPaid char not null,
-     ordTitle varchar(50) not null,
-     ordFirstName varchar(50) not null,
-     ordLastName varchar(50) not null,
-     ordStreet varchar(100) not null,
-     ordStreetNumber varchar(4) not null,
-     ordLocality varchar(50) not null,
-     ordMail varchar(255) not null,
-     ordPhoneNumber varchar(20) not null,
-     fkOrderStatus bigint,
-     constraint ID_t_order_ID primary key (idOrder));
+create table t_order
+(
+    idOrder         bigint       not null auto_increment,
+    ordNumber       varchar(50)  not null,
+    ordPaid         char         not null,
+    ordTitle        varchar(50)  not null,
+    ordFirstName    varchar(50)  not null,
+    ordLastName     varchar(50)  not null,
+    ordStreet       varchar(100) not null,
+    ordStreetNumber varchar(4)   not null,
+    ordLocality     varchar(50)  not null,
+    ordMail         varchar(255) not null,
+    ordPhoneNumber  varchar(20)  not null,
+    fkOrderStatus   bigint,
+    constraint ID_t_order_ID primary key (idOrder)
+);
 
-create table t_orderStatus (
-     idOrderStatus bigint not null auto_increment,
-     ordName varchar(50) not null,
-     constraint ID_t_orderStatus_ID primary key (idOrderStatus));
+create table t_orderStatus
+(
+    idOrderStatus bigint      not null auto_increment,
+    ordName       varchar(50) not null,
+    constraint ID_t_orderStatus_ID primary key (idOrderStatus)
+);
 
-create table t_product (
-     idProduct bigint not null auto_increment,
-     proName varchar(50) not null,
-     proDescription varchar(255) not null,
-     proPrice float(1) not null,
-     proQuantity int not null,
-     proImage varchar(255) not null,
-     proLike bigint not null,
-     fkCategory bigint not null,
-     constraint ID_t_product_ID primary key (idProduct));
+create table t_product
+(
+    idProduct      bigint       not null auto_increment,
+    proName        varchar(50)  not null,
+    proDescription varchar(255) not null,
+    proPrice       float(1)     not null,
+    proQuantity    int          not null,
+    proImage       varchar(255) not null,
+    proLike        bigint       not null,
+    fkCategory     bigint       not null,
+    constraint ID_t_product_ID primary key (idProduct)
+);
 
-     --
+--
 -- Contenu de la table `t_product`
 --
-INSERT INTO `t_product` (
-          `idProduct`,
-          `proName`,
-          `proDescription`,
-          `proPrice`,
-          `proQuantity`,
-          `proImage`,
-          `proLike`,
-          `fkCategory`
-     )
-VALUES (
-          1,
-          'Pullover',
-          'Pullover synthétique',
-          20.9,
-          10,
-          'pull.png',
-          0,
-          1
-     ),
-     (
-          2,
-          'Pantalon',
-          'Pantalon en Jean\'s véritable',
+INSERT INTO `t_product` (`idProduct`,
+                         `proName`,
+                         `proDescription`,
+                         `proPrice`,
+                         `proQuantity`,
+                         `proImage`,
+                         `proLike`,
+                         `fkCategory`)
+VALUES (1,
+        'Pullover',
+        'Pullover synthétique',
+        20.9,
+        10,
+        'pull.png',
+        0,
+        1),
+       (2,
+        'Pantalon',
+        'Pantalon en Jean\'s véritable',
           49.9,
           25,
           'pants.png',

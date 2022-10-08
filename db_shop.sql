@@ -39,7 +39,7 @@ create table t_concern
 (
     fkOrder     bigint  not null,
     fkProduct   bigint  not null,
-    conQuantity char(1) not null,
+    conQuantity int not null,
     constraint ID_t_concern_ID primary key (fkOrder, fkProduct)
 );
 
@@ -57,6 +57,7 @@ create table t_order
     ordMail         varchar(255) not null,
     ordPhoneNumber  varchar(20)  not null,
     ordStatus       varchar(50),
+    ordTotal        float        not null,
     constraint ID_t_order_ID primary key (idOrder)
 );
 

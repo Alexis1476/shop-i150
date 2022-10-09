@@ -1,2 +1,3 @@
 <?php
-echo 'profil';
+?>
+<h2>Customer</h2>

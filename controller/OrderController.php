@@ -214,6 +214,9 @@ class OrderController extends Controller
             $payment['calcul'] = round($totaux['delivery'] * $payment['value'], 1);
         }
         $_SESSION['total'] = round($payment['calcul'] + $totaux['delivery'], 1);
+        $_SESSION['totaux'] = $totaux;
+        $_SESSION['deliveryMethod'] = $delivery;
+        $_SESSION['paymentMethod'] = $payment;
 
         $view = file_get_contents('view/page/order/summary.php');
 
@@ -235,44 +238,56 @@ class OrderController extends Controller
         $shopRepository = new ShopRepository();
 
         // Generer numéro de commande
-        $_SESSION['orderNumber'] = date_create()->format('mdHis');
+        if (isset($_SESSION['products'])) {
+            $_SESSION['orderNumber'] = date_create()->format('mdHis');
 
-        // Creer commande
-        $idOrder = $orderRepository->insert(
-            $_SESSION['title'],
-            $_SESSION['firstName'],
-            $_SESSION['lastName'],
-            $_SESSION['locality'],
-            $_SESSION['mail'],
-            $_SESSION['orderNumber'],
-            $_SESSION['phone'],
-            $_SESSION['street'],
-            $_SESSION['streetNumber'],
-            $_SESSION['total']
-        );
-
-        // Remplir table pivot avec ID commande + IDs produits + quantité
-        $products = []; // Tableau de produits
-        $counter = 0;   // Compteur pour les produits de la base de donnée
-        foreach ($_SESSION['products'] as $id => $quantity) {
-            $products[] = $shopRepository->findOne($id)[0];
-
-            $orderRepository->addProducts($idOrder, $id, $quantity);  // Ajoute les produits dans la table pivot
-            // Mettre à jour la quantité
-            $products[$counter]['proQuantity'] -= $quantity;
-            $adminRepository->update(
-                $products[$counter]['proName'],
-                $products[$counter]['proDescription'],
-                $products[$counter]['proPrice'],
-                $products[$counter]['proQuantity'],
-                $products[$counter]['proImage'],
-                $products[$counter]['idCategory'],
-                $id
+            // Creer commande
+            $idOrder = $orderRepository->insert(
+                $_SESSION['title'],
+                $_SESSION['firstName'],
+                $_SESSION['lastName'],
+                $_SESSION['locality'],
+                $_SESSION['mail'],
+                $_SESSION['orderNumber'],
+                $_SESSION['phone'],
+                $_SESSION['street'],
+                $_SESSION['streetNumber'],
+                $_SESSION['total']
             );
-            $counter++;
+
+            // Remplir table pivot avec ID commande + IDs produits + quantité
+            $basket = []; // Panier
+            $products = []; // Pour l'affichage dans la vue
+            $counter = 0;   // Compteur pour les produits de la base de donnée
+
+            foreach ($_SESSION['products'] as $id => $quantity) {
+                $products[] = $shopRepository->findOne($id);
+                $basket[] = $products[$counter][0];
+
+                $orderRepository->addProducts($idOrder, $id, $quantity);  // Ajoute les produits dans la table pivot
+                // Mettre à jour la quantité
+                $basket[$counter]['proQuantity'] -= $quantity;
+                $adminRepository->update(
+                    $basket[$counter]['proName'],
+                    $basket[$counter]['proDescription'],
+                    $basket[$counter]['proPrice'],
+                    $basket[$counter]['proQuantity'],
+                    $basket[$counter]['proImage'],
+                    $basket[$counter]['idCategory'],
+                    $id
+                );
+                $counter++;
+            }
         }
         // Affichage remerciements
+        $view = file_get_contents('view/page/order/summary.php');
 
-        // Destruction de la session
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+        // Suppresion de la session
+        unset($_SESSION['products']);
+        unset($_SESSION['orderNumber']);
+        return $content;
     }
 }

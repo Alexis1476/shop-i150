@@ -45,10 +45,10 @@ class ShopController extends Controller
             if ($product['proDiscount']) {
                 // Si le decompte est en pourcentage
                 if ($product['proDiscountType'] == '%') {
-                    $product['total'] = $product['proPrice'] - ($product['proPrice'] * $product['proDiscount']) / 100;
+                    $product['total'] = round($product['proPrice'] - ($product['proPrice'] * $product['proDiscount']) / 100, 1);
                 } // Si le decompte c'est en - CHF
                 else {
-                    $product['total'] = $product['proPrice'] - $product['proDiscount'];
+                    $product['total'] = round($product['proPrice'] - $product['proDiscount'],1);
                 }
             }
             $products[] = $product;

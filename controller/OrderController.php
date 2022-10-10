@@ -57,7 +57,7 @@ class OrderController extends Controller
                 header('Location: index.php?controller=order&action=delivery&error');
             else {
                 // Enregistre le moyen de paiement -> avance au prochain formulaire
-                $_SESSION['deliveryMethod'] = $_POST['deliveryMethod'];
+                $_SESSION['deliveryMethodId'] = $_POST['deliveryMethod'];
                 header('Location: index.php?controller=order&action=payment');
             }
         }
@@ -86,7 +86,7 @@ class OrderController extends Controller
                 header('Location: index.php?controller=order&action=payment&error');
             else {
                 // Enregistre le moyen de paiement -> avance au prochain formulaire
-                $_SESSION['paymentMethod'] = $_POST['paymentMethod'];
+                $_SESSION['paymentMethodId'] = $_POST['paymentMethod'];
                 header('Location: index.php?controller=order&action=addresse');
             }
         }
@@ -184,9 +184,10 @@ class OrderController extends Controller
 
         // Mode de livraison
         $deliveryMethods = $this->deliveryMethods();
+
         $delivery = [];
         foreach ($deliveryMethods as $key => $value) {
-            if ($value['id'] == $_SESSION['deliveryMethod'])
+            if ($value['id'] == $_SESSION['deliveryMethodId'])
                 $delivery = $value;
         }
         // Calcul montant mode de livraison
@@ -202,7 +203,7 @@ class OrderController extends Controller
         $paymentMethods = $this->paymentMethods();
         $payment = [];
         foreach ($paymentMethods as $key => $value) {
-            if ($value['id'] == $_SESSION['paymentMethod'])
+            if ($value['id'] == $_SESSION['paymentMethodId'])
                 $payment = $value;
         }
 
@@ -217,7 +218,7 @@ class OrderController extends Controller
         $_SESSION['totaux'] = $totaux;
         $_SESSION['deliveryMethod'] = $delivery;
         $_SESSION['paymentMethod'] = $payment;
-
+        var_dump($_SESSION['deliveryMethod']);
         $view = file_get_contents('view/page/order/summary.php');
 
         ob_start();

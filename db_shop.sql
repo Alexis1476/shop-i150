@@ -1,6 +1,7 @@
 -- *********************************************
 -- * SQL MySQL generation                      
 -- *--------------------------------------------
+-- * Auteur : Alexis Rojas
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
 -- * Generation date: Sun Oct  2 20:33:29 2022 

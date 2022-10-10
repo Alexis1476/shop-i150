@@ -72,7 +72,7 @@ class ShopController extends Controller
 
         $shopRepository = new ShopRepository();
         $product = $shopRepository->findOne($_GET['id']);
-
+        $product[0]['total'] = $product[0]['proPrice'];
         if ($product[0]['proDiscount']) {
             // Si le decompte est en pourcentage
             $product[0]['totalDiscount'] = $product[0]['proDiscount'];

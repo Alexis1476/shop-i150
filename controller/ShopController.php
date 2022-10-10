@@ -48,7 +48,7 @@ class ShopController extends Controller
                     $product['total'] = round($product['proPrice'] - ($product['proPrice'] * $product['proDiscount']) / 100, 1);
                 } // Si le decompte c'est en - CHF
                 else {
-                    $product['total'] = round($product['proPrice'] - $product['proDiscount'],1);
+                    $product['total'] = round($product['proPrice'] - $product['proDiscount'], 1);
                 }
             }
             $products[] = $product;
@@ -72,6 +72,18 @@ class ShopController extends Controller
 
         $shopRepository = new ShopRepository();
         $product = $shopRepository->findOne($_GET['id']);
+
+        if ($product[0]['proDiscount']) {
+            // Si le decompte est en pourcentage
+            $product[0]['totalDiscount'] = $product[0]['proDiscount'];
+            if ($product[0]['proDiscountType'] == '%') {
+                $product[0]['totalDiscount'] = ($product[0]['proPrice'] * $product[0]['proDiscount']) / 100;
+                $product[0]['total'] = round($product[0]['proPrice'] - $product[0]['totalDiscount']);
+            } // Si le decompte c'est en - CHF
+            else {
+                $product[0]['total'] = round($product[0]['proPrice'] - $product[0]['proDiscount'], 1);
+            }
+        }
 
         $view = file_get_contents('view/page/shop/detail.php');
 

@@ -73,6 +73,21 @@ class BasketController extends Controller
         // Si un produit existe déjà on incrémente la quantité
         if (!isset($_SESSION['products'][$_GET['id']])) {
             $_SESSION['products'] += [$_GET['id'] => 1]; // Quantité initiale
+            $shopRepository = new ShopRepository();
+            $product = $shopRepository->findOne($_GET['id']);
+
+            // Calcul montant total avec le decompte
+            if ($product[0]['proDiscount']) {
+                // Si le decompte est en pourcentage
+                if ($product[0]['proDiscountType'] == '%') {
+                    $product[0]['proPrice'] = round($product[0]['proPrice'] - ($product[0]['proPrice'] * $product[0]['proDiscount']) / 100);
+                } // Si le decompte c'est en - CHF
+                else {
+                    $product[0]['proPrice'] = round($product[0]['proPrice'] - $product[0]['proDiscount'], 1);
+                }
+            }
+
+            $_SESSION['totalProducts'] = $product[0]['proPrice'];
         }
 
         header('Location: index.php?controller=order&action=delivery');

@@ -218,7 +218,7 @@ class OrderController extends Controller
         $_SESSION['totaux'] = $totaux;
         $_SESSION['deliveryMethod'] = $delivery;
         $_SESSION['paymentMethod'] = $payment;
-        var_dump($_SESSION['deliveryMethod']);
+
         $view = file_get_contents('view/page/order/summary.php');
 
         ob_start();

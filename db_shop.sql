@@ -38,9 +38,9 @@ VALUES (1, 'Vêtement'),
 
 create table t_concern
 (
-    fkOrder     bigint  not null,
-    fkProduct   bigint  not null,
-    conQuantity int not null,
+    fkOrder     bigint not null,
+    fkProduct   bigint not null,
+    conQuantity int    not null,
     constraint ID_t_concern_ID primary key (fkOrder, fkProduct)
 );
 
@@ -66,14 +66,16 @@ create table t_order
 
 create table t_product
 (
-    idProduct      bigint       not null auto_increment,
-    proName        varchar(50)  not null,
-    proDescription varchar(255) not null,
-    proPrice       float(1)     not null,
-    proQuantity    int          not null,
-    proImage       varchar(255) not null,
-    proLike        bigint       not null,
-    fkCategory     bigint       not null,
+    idProduct       bigint       not null auto_increment,
+    proName         varchar(50)  not null,
+    proDescription  varchar(255) not null,
+    proPrice        float(1)     not null,
+    proQuantity     int          not null,
+    proImage        varchar(255) not null,
+    proLike         bigint       not null,
+    proDiscount     float,
+    proDiscountType char,
+    fkCategory      bigint       not null,
     constraint ID_t_product_ID primary key (idProduct)
 );
 

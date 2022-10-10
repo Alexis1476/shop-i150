@@ -26,12 +26,26 @@ class BasketController extends Controller
     public function show()
     {
         $shopRepository = new ShopRepository();
+        $data = [];
         $products = [];
 
         // Get products in basket
         if (isset($_SESSION['products'])) {
             foreach ($_SESSION['products'] as $product => $quantity) {
-                $products[] = $shopRepository->findOne($product);
+                $data[] = $shopRepository->findOne($product);
+            }
+            // Calcul avec le decompte
+            foreach ($data as $product) {
+                if ($product[0]['proDiscount']) {
+                    // Si le decompte est en pourcentage
+                    if ($product[0]['proDiscountType'] == '%') {
+                        $product[0]['proPrice'] = round($product[0]['proPrice'] - ($product[0]['proPrice'] * $product[0]['proDiscount']) / 100);
+                    } // Si le decompte c'est en - CHF
+                    else {
+                        $product[0]['proPrice'] = round($product[0]['proPrice'] - $product[0]['proDiscount'], 1);
+                    }
+                }
+                $products[] = $product;
             }
         }
 

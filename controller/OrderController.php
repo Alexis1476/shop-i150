@@ -249,7 +249,6 @@ class OrderController extends Controller
      */
     public function creditCard()
     {
-        var_dump($_SESSION);
         // Si le mode de paiement c'est par carte de credit (Voir dans ./data/paymentMethods.php)
         if ($_SESSION['paymentMethodId'] == '3') {
             // Affichage paiement par carte de crédit
@@ -280,6 +279,11 @@ class OrderController extends Controller
         if (isset($_SESSION['products'])) {
             $_SESSION['orderNumber'] = date_create()->format('mdHis');
 
+            // Etat de la commande = 1 Payé, 0 pas payé
+            $_SESSION['orderStatus'] = 0;
+            if ($_SESSION['paymentMethodId'] == '3') { // Si carte de crédit
+                $_SESSION['orderStatus'] = 1;
+            }
             // Creer commande
             $idOrder = $orderRepository->insert(
                 $_SESSION['title'],
@@ -293,7 +297,8 @@ class OrderController extends Controller
                 $_SESSION['streetNumber'],
                 $_SESSION['total'],
                 $_SESSION['deliveryMethod']['name'],
-                $_SESSION['paymentMethod']['name']
+                $_SESSION['paymentMethod']['name'],
+                $_SESSION['orderStatus']
             );
 
             // Remplir table pivot avec ID commande + IDs produits + quantité
@@ -331,6 +336,7 @@ class OrderController extends Controller
         // Suppresion de la session
         unset($_SESSION['products']);
         unset($_SESSION['orderNumber']);
+        unset($_SESSION['orderStatus']);
         return $content;
     }
 }

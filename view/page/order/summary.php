@@ -12,7 +12,12 @@
         <div class="justify-content">
             <p>Envoyé à :</p>
             <p>Livraison : <?= $_SESSION['deliveryMethod']['name'] ?></p>
-            <p>Paiement : <?= $_SESSION['paymentMethod']['name'] ?></p>
+            <p>Paiement : <?= $_SESSION['paymentMethod']['name'] ?><br>
+                <!--Affichage état de la commande-->
+                <?php if (isset($_SESSION['orderStatus'])): ?>
+                    <p>Statut de paiement : <?=$_SESSION['orderStatus'] == 1 ? 'Payé' : 'Non payé'?></p>
+                <?php endif; ?>
+            </p>
         </div>
         <p><?= $_SESSION['title'] ?></p>
         <p><?= $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] ?></p>

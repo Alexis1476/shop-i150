@@ -336,6 +336,7 @@ class OrderController extends Controller
         // Suppresion de la session
         unset($_SESSION['products']);
         unset($_SESSION['orderNumber']);
+        unset($_SESSION['totalProducts']);
         unset($_SESSION['orderStatus']);
         return $content;
     }

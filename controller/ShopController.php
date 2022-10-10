@@ -1,6 +1,7 @@
 <?php
 /**
  * ETML
+ * Auteur: Alexis Rojas
  * Date: 10/10/2022
  * Description: Class qui gère les produits du shop
  */

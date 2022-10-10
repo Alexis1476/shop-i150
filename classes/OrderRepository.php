@@ -3,6 +3,7 @@
  * ETML
  * Auteur: Alexis Rojas
  * Date: 08/10/2022
+ * Description: Gère les tables affectées lors d'une commande (t_order et t_concern)
  */
 
 include_once 'database/DataBaseQuery.php';

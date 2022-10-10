@@ -3,7 +3,7 @@
  * ETML
  * Date: 10/10/2022
  * Auteur : Alexis Rojas
- * Shop
+ * Description : Class qui gère la connexion à l'application
  */
 include_once 'classes/LoginRepository.php';
 

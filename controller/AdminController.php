@@ -3,7 +3,7 @@
  * ETML
  * Date: 10/10/2022
  * Auteur: Alexis Rojas
- * Shop
+ * Description: Class qui contient des functions propres aux administrateurs
  */
 
 include_once 'classes/AdminRepository.php';

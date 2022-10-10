@@ -26,6 +26,9 @@
         <?php if ($product[0]['proQuantity'] > 0): ?>
             <a class="btn btn-default" href="index.php?controller=basket&action=add&id=<?= $product[0]['idProduct'] ?>">
                 Ajouter au panier</a>
+            <a class="btn btn-default"
+               href="index.php?controller=basket&action=instantPurchase&id=<?= $product[0]['idProduct'] ?>">
+                Achat instantané</a>
         <?php endif; ?>
         <p> CHF : <?= $product[0]['total'] ?></p>
         <?php if ($product[0]['proDiscount']): ?>

@@ -59,6 +59,24 @@ class BasketController extends Controller
     }
 
     /**
+     * Fait un achat instantané d'un produit
+     * @return void
+     */
+    public function instantPurchase()
+    {
+        // Si le tableau contenant les id des produits n'existe pas
+        if (!isset($_SESSION['products'])) {
+            $_SESSION['products'] = [];
+        }
+        // Si un produit existe déjà on incrémente la quantité
+        if (!isset($_SESSION['products'][$_GET['id']])) {
+            $_SESSION['products'] += [$_GET['id'] => 1]; // Quantité initiale
+        }
+
+        header('Location: index.php?controller=order&action=delivery');
+    }
+
+    /**
      * Ajoute un produit au panier
      * @return void
      */

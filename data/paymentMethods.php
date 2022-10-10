@@ -10,7 +10,7 @@
     0 => [
         'id' => 1,
         'name' => 'Sur facture',
-        'text' => 'Sur facture (+ 2.-)',
+        'text' => 'Sur facture (+ CHF 2.-)',
         'operator' => '+',
         'value' => 2
     ],

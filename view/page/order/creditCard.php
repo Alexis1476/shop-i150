@@ -6,6 +6,4 @@
 <p><?= $_SESSION['pc'] . ' ' . $_SESSION['locality'] ?> </p><br>
 <p>Total à payer : CHF <?= $_SESSION['total'] ?></p> <br>
 
-<form action="index.php?controller=order&action=sendOrder" method="post">
-    <button type="submit" class="btn btn-default">Payer maintenant</button>
-</form>
+<a class="btn btn-default" href="index.php?controller=order&action=sendOrder">Payer maintenant</a>

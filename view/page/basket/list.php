@@ -16,20 +16,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $total = 0; ?>
+                    <?php $_SESSION['totalProducts'] = 0; ?>
                     <?php foreach ($products as $product) : ?>
                         <tr>
                             <td><?= $product[0]['proName'] ?></td>
                             <td>CHF <?= $product[0]['proPrice'] ?></td>
-                            <td><!--TODO: Gerer quantité-->
+                            <td>
                                 <?= $_SESSION['products'][$product[0]['idProduct']] ?>
                             </td>
                             <td>
                                 CHF
                                 <?php
                                 $sousTotal = $_SESSION['products'][$product[0]['idProduct']] * $product[0]['proPrice'];
-                                $total += $sousTotal;
-                                echo $sousTotal ?>
+                                $sousTotal = round($sousTotal, 2);
+                                $_SESSION['totalProducts'] += $sousTotal;
+                                echo number_format($sousTotal, 2); ?>
                             </td>
                             <td>
                                 <a class="btn btn-default"
@@ -50,7 +51,7 @@
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td>CHF <?= $total ?></td>
+                        <td>CHF <?= number_format($_SESSION['totalProducts'], 2) ?></td>
                     </tr>
                     </tfoot>
                 </table>

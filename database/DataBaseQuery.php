@@ -17,25 +17,23 @@ class DataBaseQuery
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
 
-        $user   = $GLOBALS['MM_CONFIG']['database']['username'];
-        $pass   = $GLOBALS['MM_CONFIG']['database']['password'];
+        $user = $GLOBALS['MM_CONFIG']['database']['username'];
+        $pass = $GLOBALS['MM_CONFIG']['database']['password'];
         $dbname = $GLOBALS['MM_CONFIG']['database']['dbname'];
-        $host   = $GLOBALS['MM_CONFIG']['database']['host'];
-        $port   = $GLOBALS['MM_CONFIG']['database']['port'];
+        $host = $GLOBALS['MM_CONFIG']['database']['host'];
+        $port = $GLOBALS['MM_CONFIG']['database']['port'];
         $charset = $GLOBALS['MM_CONFIG']['database']['charset'];
 
-        try
-        {
+        try {
             $this->connection = new \PDO(
                 'mysql:host=' . $host .
                 ';port=' . $port .
                 ';dbname=' . $dbname .
-                ";charset=". $charset, $user, $pass,array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
-        }
-        catch (Exception $e)
-        {
+                ";charset=" . $charset, $user, $pass, array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
+        } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
         }
     }
@@ -47,7 +45,8 @@ class DataBaseQuery
      * @param string $columns
      * @return array
      */
-    public function select($table, $columns, $where = '', $orderBy = '') {
+    public function select($table, $columns, $where = '', $orderBy = '')
+    {
 
         $query = 'SELECT ' . $columns . ' FROM ' . $table;
 
@@ -69,7 +68,8 @@ class DataBaseQuery
      * @param string $query
      * @return array
      */
-    public function rawQuery($query,$mode=PDO::FETCH_ASSOC) {
+    public function rawQuery($query, $mode = PDO::FETCH_ASSOC)
+    {
 
         $req = $this->connection->prepare($query);
         $req->execute();
@@ -85,9 +85,10 @@ class DataBaseQuery
      * @param bool|false $lastID
      * @return bool|string
      */
-    public function insert($table, $columns, $values) {
+    public function insert($table, $columns, $values)
+    {
 
-        $query = 'INSERT INTO ' . $table . ' ' . $columns . " VALUES " . $values ;
+        $query = 'INSERT INTO ' . $table . ' ' . $columns . " VALUES " . $values;
 
         $req = $this->connection->prepare($query);
 
@@ -102,7 +103,8 @@ class DataBaseQuery
      * @param string $where
      * @return bool
      */
-    public function update($table, $columns, $where) {
+    public function update($table, $columns, $where)
+    {
 
         $query = 'UPDATE ' . $table . ' SET ' . $columns . " WHERE " . $where;
 
@@ -116,10 +118,20 @@ class DataBaseQuery
      * @param $table
      * @param $where
      */
-    public function delete($table, $where){
+    public function delete($table, $where)
+    {
         $query = 'DELETE FROM ' . $table . ' WHERE ' . $where;
 
         $req = $this->connection->prepare($query);
         return $req->execute();
+    }
+
+    /**
+     * Retourne ll'id du dernier record
+     * @return false|string
+     */
+    public function lastId()
+    {
+        return $this->connection->lastInsertId();
     }
 }

@@ -50,7 +50,7 @@ class MainController
      * Selected the page current
      *
      * @param string $page
-     * @return AdminController|HomeController|LoginController|ShopController
+     * @return string
      */
     protected function menuSelected($page)
     {

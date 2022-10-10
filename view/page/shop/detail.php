@@ -17,15 +17,23 @@
             <img src="resources/image/<?= $product[0]['proImage'] ?>">
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <p> CHF : <?= $product[0]['proPrice'] ?></p>
+            <!-- Si le produit a déjà été liké on affiche le nombre de fois-->
             <?php if ($product[0]['proLike'] > 0) : ?>
                 <p>Ce produit est aimée déjà <strong><?= $product[0]['proLike'] ?></strong> fois ! </p>
             <?php endif; ?>
         </div>
-        <!--TODO: Button ajouter au panier si stock-->
+        <!-- Si le produit a du stock le bouton ajouter au panier est affiché ; sinon, non-->
         <?php if ($product[0]['proQuantity'] > 0): ?>
             <a class="btn btn-default" href="index.php?controller=basket&action=add&id=<?= $product[0]['idProduct'] ?>">
                 Ajouter au panier</a>
+            <a class="btn btn-default"
+               href="index.php?controller=basket&action=instantPurchase&id=<?= $product[0]['idProduct'] ?>">
+                Achat instantané</a>
+        <?php endif; ?>
+        <p> CHF : <?= $product[0]['total'] ?></p>
+        <?php if ($product[0]['proDiscount']): ?>
+            <div>au lieu de <?= $product[0]['proPrice'] ?>.- (vous économisez <?= $product[0]['totalDiscount'] ?>.-)
+            </div>
         <?php endif; ?>
     </div>
 </div>

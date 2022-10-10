@@ -58,6 +58,8 @@ create table t_order
     ordPhoneNumber  varchar(20)  not null,
     ordStatus       varchar(50),
     ordTotal        float        not null,
+    ordDelivery     varchar(50),
+    ordPayment      varchar(50),
     constraint ID_t_order_ID primary key (idOrder)
 );
 

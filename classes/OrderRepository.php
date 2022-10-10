@@ -42,14 +42,14 @@ class OrderRepository implements Entity
      * @param $ordTotal
      * @return false|string
      */
-    public function insert($ordTitle, $ordFirstName, $ordLastName, $ordLocality, $ordMail, $ordNumber, $ordPhoneNumber, $ordStreet, $ordStreetNumber, $ordTotal)
+    public function insert($ordTitle, $ordFirstName, $ordLastName, $ordLocality, $ordMail, $ordNumber, $ordPhoneNumber, $ordStreet, $ordStreetNumber, $ordTotal, $ordDelivery, $ordPayment)
     {
         $request = new DataBaseQuery();
 
         $table = 't_order';
-        $columns = '(idOrder, ordTitle, ordFirstName, ordLastName, ordLocality, ordMail, ordNumber, ordPaid, ordPhoneNumber, ordStatus, ordStreet, ordStreetNumber, ordTotal)';
+        $columns = '(idOrder, ordTitle, ordFirstName, ordLastName, ordLocality, ordMail, ordNumber, ordPaid, ordPhoneNumber, ordStatus, ordStreet, ordStreetNumber, ordTotal, ordDelivery, ordPayment)';
         // N = order pas payé
-        $values = "(NULL, '$ordTitle', '$ordFirstName', '$ordLastName', '$ordLocality', '$ordMail', '$ordNumber', 'N', '$ordPhoneNumber', 'En attente', '$ordStreet', $ordStreetNumber, $ordTotal)";
+        $values = "(NULL, '$ordTitle', '$ordFirstName', '$ordLastName', '$ordLocality', '$ordMail', '$ordNumber', 'N', '$ordPhoneNumber', 'En attente', '$ordStreet', $ordStreetNumber, $ordTotal, '$ordDelivery', '$ordPayment')";
 
         $request->insert($table, $columns, $values);
         return $request->lastId();

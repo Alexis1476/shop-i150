@@ -253,7 +253,9 @@ class OrderController extends Controller
                 $_SESSION['phone'],
                 $_SESSION['street'],
                 $_SESSION['streetNumber'],
-                $_SESSION['total']
+                $_SESSION['total'],
+                $_SESSION['deliveryMethod']['name'],
+                $_SESSION['paymentMethod']['name']
             );
 
             // Remplir table pivot avec ID commande + IDs produits + quantité

@@ -73,7 +73,7 @@
             </tbody>
         </table>
         <?php if (!isset($_SESSION['orderNumber'])): ?>
-            <form action="index.php?controller=order&action=sendOrder" method="post">
+            <form action="index.php?controller=order&action=creditCard" method="post">
                 <button type="submit">Envoyer la commande</button>
             </form>
         <?php endif; ?>

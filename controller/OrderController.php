@@ -243,11 +243,35 @@ class OrderController extends Controller
     }
 
     /**
+     * Si la carte de crédit est choisie comme moyen de paiement;
+     * on affiche une confirmation de paiement; sinon on confirme la commande directement
+     * @return false|string|void
+     */
+    public function creditCard()
+    {
+        var_dump($_SESSION);
+        // Si le mode de paiement c'est par carte de credit (Voir dans ./data/paymentMethods.php)
+        if ($_SESSION['paymentMethodId'] == '3') {
+            // Affichage paiement par carte de crédit
+            $view = file_get_contents('view/page/order/creditCard.php');
+
+            ob_start();
+            eval('?>' . $view);
+            $content = ob_get_clean();
+
+            return $content;
+        } else {
+            header('Location: index.php?controller=order&action=sendOrder');
+        }
+    }
+
+    /**
      * Enregistre les données de la commande dans la base de données
      * @return void
      */
     public function sendOrder()
     {
+        // Si paiement par carte de credit
         $orderRepository = new OrderRepository();
         $adminRepository = new AdminRepository();
         $shopRepository = new ShopRepository();

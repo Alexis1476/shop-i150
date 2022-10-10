@@ -267,6 +267,7 @@ class OrderController extends Controller
                 $orderRepository->addProducts($idOrder, $id, $quantity);  // Ajoute les produits dans la table pivot
                 // Mettre à jour la quantité
                 $basket[$counter]['proQuantity'] -= $quantity;
+                $basket[$counter]['proDescription'] = str_replace('\'', '', $basket[$counter]['proDescription']);
                 $adminRepository->update(
                     $basket[$counter]['proName'],
                     $basket[$counter]['proDescription'],
@@ -279,6 +280,7 @@ class OrderController extends Controller
                 $counter++;
             }
         }
+
         // Affichage remerciements
         $view = file_get_contents('view/page/order/summary.php');
 

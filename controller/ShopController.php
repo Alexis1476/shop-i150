@@ -1,20 +1,22 @@
 <?php
 /**
  * ETML
- * Date: 01.06.2017
- * Shop
+ * Date: 10/10/2022
+ * Description: Class qui gère les produits du shop
  */
 
 include_once 'classes/ShopRepository.php';
 
-class ShopController extends Controller {
+class ShopController extends Controller
+{
 
     /**
      * Dispatch current action
      *
      * @return mixed
      */
-    public function display() {
+    public function display()
+    {
 
         $action = $_GET['action'] . "Action";
 
@@ -32,13 +34,26 @@ class ShopController extends Controller {
      *
      * @return string
      */
-    private function listAction() {
-
+    private function listAction()
+    {
         $shopRepository = new ShopRepository();
-        $products = $shopRepository->findAll();
-
+        $data = $shopRepository->findAll();
+        $products = [];
+        foreach ($data as $product) {
+            // Si le produit a un decompte
+            $product += ['total' => $product['proPrice']];
+            if ($product['proDiscount']) {
+                // Si le decompte est en pourcentage
+                if ($product['proDiscountType'] == '%') {
+                    $product['total'] = $product['proPrice'] - ($product['proPrice'] * $product['proDiscount']) / 100;
+                } // Si le decompte c'est en - CHF
+                else {
+                    $product['total'] = $product['proPrice'] - $product['proDiscount'];
+                }
+            }
+            $products[] = $product;
+        }
         $view = file_get_contents('view/page/shop/list.php');
-
 
         ob_start();
         eval('?>' . $view);
@@ -52,7 +67,8 @@ class ShopController extends Controller {
      *
      * @return string
      */
-    private function detailAction() {
+    private function detailAction()
+    {
 
         $shopRepository = new ShopRepository();
         $product = $shopRepository->findOne($_GET['id']);
